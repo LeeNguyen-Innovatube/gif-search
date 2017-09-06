@@ -1,20 +1,12 @@
 import React from "react"
 
-export default class SearchBar extends React.Component {
-  constructor() {
-    super()
-    this.state = { term: "" }
-  }
-
-  handleChange = e => {
-    const term = e.target.value
-    this.setState({ term })
-    this.props.onTermChange(term)
-  }
-
-  render = () => (
+const SearchBar = ({ onTermChange }) => {
+  const submitChange = e => onTermChange(e.target.value)
+  return (
     <div className="search">
-      <input onChange={this.handleChange} />
+      <input onChange={submitChange} />
     </div>
   )
 }
+
+export default SearchBar

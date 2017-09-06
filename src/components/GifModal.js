@@ -5,10 +5,12 @@ const GifModal = ({ modalIsOpen, selectedGif, onRequestClose }) => {
   if (!selectedGif) {
     return <div />
   }
+  const closeModal = () => onRequestClose()
+
   return (
     <Modal
       isOpen={modalIsOpen}
-      onRequestClose={() => onRequestClose()}
+      onRequestClose={closeModal}
       contentLabel="selected"
     >
       <div>
@@ -21,7 +23,7 @@ const GifModal = ({ modalIsOpen, selectedGif, onRequestClose }) => {
           <strong>Rating:</strong> {selectedGif.rating}
         </p>
 
-        <button onClick={() => onRequestClose()}>close</button>
+        <button onClick={closeModal}>close</button>
       </div>
     </Modal>
   )
