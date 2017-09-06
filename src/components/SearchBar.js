@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 const SearchBar = ({ onTermChange }) => {
   const submitChange = e => onTermChange(e.target.value)

@@ -1,11 +1,11 @@
-import React from "react"
-import { connect } from "react-redux"
-import { bindActionCreators } from "redux"
-import * as Actions from "../actions"
-import SearchBar from "../components/SearchBar"
-import GifList from "../components/GifList"
-import GifModal from "../components/GifModal"
-import "../styles/app.css"
+import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as Actions from '../actions'
+import SearchBar from '../components/SearchBar'
+import GifList from '../components/GifList'
+import GifModal from '../components/GifModal'
+import '../styles/app.css'
 
 const App = ({
   gifs,
