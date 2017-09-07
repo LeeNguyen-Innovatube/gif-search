@@ -7,7 +7,7 @@ import GifList from '../components/GifList'
 import GifModal from '../components/GifModal'
 import '../styles/app.css'
 
-const App = ({ gifs, modalIsOpen, selectedGif, actions }) => (
+const Home = ({ gifs, modalIsOpen, selectedGif, actions }) => (
   <div>
     <SearchBar onTermChange={actions.requestGifs} />
     <GifList
@@ -32,4 +32,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
