@@ -7,21 +7,17 @@ import GifList from '../components/GifList'
 import GifModal from '../components/GifModal'
 import '../styles/app.css'
 
-const App = ({
-  gifs,
-  modalIsOpen,
-  selectedGif,
-  requestGifs,
-  openModal,
-  closeModal
-}) => (
+const App = ({ gifs, modalIsOpen, selectedGif, actions }) => (
   <div>
-    <SearchBar onTermChange={requestGifs} />
-    <GifList gifs={gifs} onGifSelect={selectedGif => openModal(selectedGif)} />
+    <SearchBar onTermChange={actions.requestGifs} />
+    <GifList
+      gifs={gifs}
+      onGifSelect={selectedGif => actions.openModal(selectedGif)}
+    />
     <GifModal
       modalIsOpen={modalIsOpen}
       selectedGif={selectedGif}
-      onRequestClose={() => closeModal()}
+      onRequestClose={() => actions.closeModal()}
     />
   </div>
 )
@@ -32,6 +28,8 @@ const mapStateToProps = state => ({
   selectedGif: state.modal.selectedGif
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
