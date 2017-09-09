@@ -1,5 +1,5 @@
 import React from 'react'
-import GifItem from './GifItem'
+import GifItem from './item'
 
 const GifList = ({ gifs, onGifSelect }) =>
   <div className="gif-list">

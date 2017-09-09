@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR, SIGN_OUT_USER } from '../actions'
+import { AUTH_USER, AUTH_ERROR, SIGN_OUT_USER } from './actions'
 
 const initialState = {
   authenticated: false,

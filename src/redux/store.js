@@ -1,9 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import reduxThunk from 'redux-thunk'
-import rootReducer from '../reducers'
+import rootReducer from './reducer'
 import CreateHistory from 'history/createBrowserHistory'
 import { routerMiddleware } from 'react-router-redux'
-import * as Actions from '../actions'
+import * as AuthActions from './auth/actions'
 
 export const history = CreateHistory()
 
@@ -19,13 +19,13 @@ export default function configureStore (initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers').default
+    module.hot.accept('./reducer', () => {
+      const nextRootReducer = require('./reducer').default
       store.replaceReducer(nextRootReducer)
     })
   }
 
-  store.dispatch(Actions.verifyAuth())
+  store.dispatch(AuthActions.verifyAuth())
 
   return store
 }

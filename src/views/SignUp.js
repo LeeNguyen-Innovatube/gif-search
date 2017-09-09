@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import * as Actions from '../actions'
+import * as Actions from '../redux/auth/actions'
 
 const validate = values => {
   const errors = {}

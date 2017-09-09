@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as Actions from '../actions'
+import * as AuthActions from '../redux/auth/actions'
 
 const Header = ({ signOutUser, authenticated }) => {
   const handleSignOut = () => signOutUser()
@@ -44,4 +44,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.auth.authenticated
 })
 
-export default connect(mapStateToProps, Actions)(Header)
+export default connect(mapStateToProps, AuthActions)(Header)

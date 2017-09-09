@@ -1,7 +1,8 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import * as Actions from '../actions'
+import { bindActionCreators } from 'redux'
+import { AuthActions } from '../redux/actions'
 
 const validate = values => {
   const errors = {}
@@ -19,8 +20,8 @@ const validate = values => {
   return errors
 }
 
-const Login = ({ signInUser, authenticationError, handleSubmit }) => {
-  const handleFormSubmit = values => signInUser(values)
+const Login = ({ AuthActions, authenticationError, handleSubmit }) => {
+  const handleFormSubmit = values => AuthActions.signInUser(values)
 
   const renderField = ({ input, label, type, meta: { touched, error } }) =>
     <fieldset className={`form-group ${touched && error ? 'has-error' : ''}`}>
@@ -53,7 +54,11 @@ const mapStateToProps = state => ({
   authenticationError: state.auth.error
 })
 
-export default connect(mapStateToProps, Actions)(
+const mapDispatchToProps = dispatch => ({
+  AuthActions: bindActionCreators(AuthActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({
     form: 'login',
     validate

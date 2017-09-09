@@ -1,14 +1,8 @@
-import request from 'superagent'
 import Firebase from 'firebase'
-export const REQUEST_GIFS = 'REQUEST_GIFS'
-export const OPEN_MODAL = 'OPEN_MODAL'
-export const CLOSE_MODAL = 'CLOSE_MODAL'
+
 export const SIGN_OUT_USER = 'SIGN_OUT_USER'
 export const AUTH_ERROR = 'AUTH_ERROR'
 export const AUTH_USER = 'AUTH_USER'
-
-const API_URL = 'http://api.giphy.com/v1/gifs/search?q='
-const API_KEY = '&api_key=dc6zaTOxFJmzC'
 
 const config = {
   apiKey: 'AIzaSyCmjMN7wsweCSPcy2gqUOkNqRIN3LYpQPQ',
@@ -17,21 +11,6 @@ const config = {
 }
 
 Firebase.initializeApp(config)
-
-export const requestGifs = (term = null) =>
-  (dispatch) => {
-    request.get(`${API_URL}${term.replace(/\s/g, '+')}${API_KEY}`)
-      .then(res => dispatch({ type: REQUEST_GIFS, payload: res.body }))
-  }
-
-export const openModal = gif => ({
-  type: OPEN_MODAL,
-  gif
-})
-
-export const closeModal = () => ({
-  type: CLOSE_MODAL
-})
 
 export const signInUser = (credentials) =>
   (dispatch) => {

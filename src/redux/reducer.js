@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
-import AuthReducer from './auth'
-import GifsReducer from './gifs'
-import ModalReducer from './modal'
+
+import AuthReducer from './auth/reducer'
+import GifsReducer from './gifs/reducer'
+import ModalReducer from './gif_modal/reducer'
+
 import { routerReducer } from 'react-router-redux'
 import { reducer as FormReducer } from 'redux-form'
 

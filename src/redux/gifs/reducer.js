@@ -1,4 +1,4 @@
-import { REQUEST_GIFS } from '../actions/index'
+import { REQUEST_GIFS } from './actions'
 
 const initialState = {
   data: [],
