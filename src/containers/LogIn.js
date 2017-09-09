@@ -19,53 +19,41 @@ const validate = values => {
   return errors
 }
 
-class Login extends React.Component {
-  handleFormSubmit = values => this.props.signInUser(values)
+const Login = ({ signInUser, authenticationError, handleSubmit }) => {
+  const handleFormSubmit = values => signInUser(values)
 
-  renderField = ({ input, label, type, meta: { touched, error } }) => (
+  const renderField = ({ input, label, type, meta: { touched, error } }) =>
     <fieldset className={`form-group ${touched && error ? 'has-error' : ''}`}>
       <label className="control-label">{label}</label>
       <div>
-        <input
-          {...input}
-          placeholder={label}
-          className="form-control"
-          type={type}
-        />
+        <input {...input} placeholder={label} className="form-control" type={type} />
         {touched && error && <div className="help-block">{error}</div>}
       </div>
     </fieldset>
-  )
 
-  render = () => (
+  const renderAuthenticationError = (error) =>
+    error && <div className="alert alert-danger">{ error }</div>
+
+  return (
     <div className="container">
       <div className="col-md-6 col-md-offset-3">
         <h2 className="text-center">Log In</h2>
-        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-          <Field
-            name="email"
-            component={this.renderField}
-            className="form-control"
-            type="text"
-            label="Email"
-          />
-          <Field
-            name="password"
-            component={this.renderField}
-            className="form-control"
-            type="password"
-            label="Password"
-          />
-          <button action="submit" className="btn btn-primary">
-            Sign In
-          </button>
+        { renderAuthenticationError(authenticationError) }
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <Field name="email" component={renderField} className="form-control" type="text" label="Email" />
+          <Field name="password" component={renderField} className="form-control" type="password" label="Password" />
+          <button action="submit" className="btn btn-primary">Sign In</button>
         </form>
       </div>
     </div>
   )
 }
 
-export default connect(null, Actions)(
+const mapStateToProps = state => ({
+  authenticationError: state.auth.error
+})
+
+export default connect(mapStateToProps, Actions)(
   reduxForm({
     form: 'login',
     validate

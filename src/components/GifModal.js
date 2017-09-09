@@ -8,11 +8,7 @@ const GifModal = ({ modalIsOpen, selectedGif, onRequestClose }) => {
   const closeModal = () => onRequestClose()
 
   return (
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      contentLabel="selected"
-    >
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="selected">
       <div>
         <img src={selectedGif.images.original.url} alt="gif original" />
         <p>

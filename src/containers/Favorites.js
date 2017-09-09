@@ -1,9 +1,12 @@
 import React from 'react'
+import '../styles/app.css'
 
-class Favorites extends React.Component {
+export default class Favorites extends React.Component {
   render () {
-    return <div>My Favorites</div>
+    return (
+      <div>
+        Favorites
+      </div>
+    )
   }
 }
-
-export default Favorites

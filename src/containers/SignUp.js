@@ -26,58 +26,44 @@ const validate = values => {
   return errors
 }
 
-class Signup extends React.Component {
-  handleFormSubmit = values => this.props.signInUser(values)
-  renderField = ({ input, label, type, meta: { touched, error } }) => (
+const SignUp = ({ authenticationError, signUpUser, handleSubmit }) => {
+  const handleFormSubmit = values => signUpUser(values)
+
+  const renderField = ({ input, label, type, meta: { touched, error } }) =>
     <fieldset className={`form-group ${touched && error ? 'has-error' : ''}`}>
       <label className="control-label">{label}</label>
       <div>
-        <input
-          {...input}
-          placeholder={label}
-          className="form-control"
-          type={type}
-        />
+        <input {...input} placeholder={label} className="form-control" type={type} />
         {touched && error && <div className="help-block">{error}</div>}
       </div>
     </fieldset>
-  )
-  render = () => (
+
+  const renderAuthenticationError = (error) =>
+    error && <div className="alert alert-danger">{ error }</div>
+
+  return (
     <div className="container">
       <div className="col-md-6 col-md-offset-3">
         <h2 className="text-center">Sign Up</h2>
-        <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-          <Field
-            name="email"
-            type="text"
-            component={this.renderField}
-            label="Email"
-          />
-          <Field
-            name="password"
-            type="password"
-            component={this.renderField}
-            label="Password"
-          />
-          <Field
-            name="passwordConfirmation"
-            type="password"
-            component={this.renderField}
-            label="Password Confirmation"
-          />
-
-          <button action="submit" className="btn btn-primary">
-            Sign up
-          </button>
+        { renderAuthenticationError(authenticationError) }
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <Field name="email" type="text" component={renderField} label="Email" />
+          <Field name="password" type="password" component={renderField} label="Password" />
+          <Field name="passwordConfirmation" type="password" component={renderField} label="Password Confirmation" />
+          <button action="submit" className="btn btn-primary">Sign up</button>
         </form>
       </div>
     </div>
   )
 }
 
-export default connect(null, Actions)(
+const mapStateToProps = state => ({
+  authenticationError: state.auth.error
+})
+
+export default connect(mapStateToProps, Actions)(
   reduxForm({
     form: 'signup',
     validate
-  })(Signup)
+  })(SignUp)
 )

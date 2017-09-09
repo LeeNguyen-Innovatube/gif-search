@@ -18,34 +18,24 @@ const PrivateRoute = ({ component: Component, authenticated, ...props }) => (
 )
 
 const PublicRoute = ({ component: Component, authenticated, ...props }) => (
-  <Route
-    {...props}
-    render={props =>
-      authenticated === false ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/favorites" />
-      )}
-  />
+  <Route {...props} render={props => authenticated === false
+    ? <Component {...props} />
+    : <Redirect to="/favorites" />
+  } />
 )
 
-class App extends React.Component {
-  render () {
-    return (
-      <ConnectedRouter history={history}>
-        <div>
-          <Header />
-          <div className="container">
-            <Route exact path="/" component={Home} />
-            <PublicRoute authenticated={this.props.authenticated} path="/signup" component={SignUp} />
-            <PublicRoute authenticated={this.props.authenticated} path="/login" component={Login} />
-            <PrivateRoute authenticated={this.props.authenticated} path="/favorites" component={Favorites} />
-          </div>
-        </div>
-      </ConnectedRouter>
-    )
-  }
-}
+const App = ({ authenticated }) =>
+  <ConnectedRouter history={history}>
+    <div>
+      <Header />
+      <div className="container">
+        <Route exact path="/" component={Home} />
+        <PublicRoute authenticated={authenticated} path="/signup" component={SignUp} />
+        <PublicRoute authenticated={authenticated} path="/login" component={Login} />
+        <PrivateRoute authenticated={authenticated} path="/favorites" component={Favorites} />
+      </div>
+    </div>
+  </ConnectedRouter>
 
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated

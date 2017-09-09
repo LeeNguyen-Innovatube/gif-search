@@ -1,8 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux'
-import ReduxPromise from 'redux-promise'
+import reduxThunk from 'redux-thunk'
 import rootReducer from '../reducers'
 import CreateHistory from 'history/createBrowserHistory'
 import { routerMiddleware } from 'react-router-redux'
+import * as Actions from '../actions'
 
 export const history = CreateHistory()
 
@@ -11,7 +12,7 @@ export default function configureStore (initialState) {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(ReduxPromise, routerMiddleware(history)),
+      applyMiddleware(reduxThunk, routerMiddleware(history)),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   )
@@ -23,6 +24,8 @@ export default function configureStore (initialState) {
       store.replaceReducer(nextRootReducer)
     })
   }
+
+  store.dispatch(Actions.verifyAuth())
 
   return store
 }
