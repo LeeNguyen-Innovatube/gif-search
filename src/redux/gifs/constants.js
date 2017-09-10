@@ -1,0 +1,2 @@
+export const REQUEST_GIFS = 'REQUEST_GIFS'
+export const REQUEST_GIFS_DONE = 'REQUEST_GIFS_DONE'

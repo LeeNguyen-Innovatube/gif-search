@@ -1,12 +1,11 @@
-import request from 'superagent'
+import * as Types from './constants'
 
-const API_URL = 'http://api.giphy.com/v1/gifs/search?q='
-const API_KEY = '&api_key=dc6zaTOxFJmzC'
+export const requestGifs = term => ({
+  type: Types.REQUEST_GIFS,
+  term
+})
 
-export const REQUEST_GIFS = 'REQUEST_GIFS'
-
-export const requestGifs = (term = null) =>
-  (dispatch) => {
-    request.get(`${API_URL}${term.replace(/\s/g, '+')}${API_KEY}`)
-      .then(res => dispatch({ type: REQUEST_GIFS, payload: res.body }))
-  }
+export const requestGifsDone = gifs => ({
+  type: Types.REQUEST_GIFS_DONE,
+  gifs
+})

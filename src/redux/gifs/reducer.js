@@ -1,4 +1,4 @@
-import { REQUEST_GIFS } from './actions'
+import * as Types from './constants'
 
 const initialState = {
   data: [],
@@ -7,8 +7,8 @@ const initialState = {
 
 export default function gifs (state = initialState, action) {
   switch (action.type) {
-    case REQUEST_GIFS:
-      return { ...state, data: action.payload.data }
+    case Types.REQUEST_GIFS_DONE:
+      return { ...state, data: action.gifs }
     default:
       return state
   }

@@ -3,7 +3,10 @@ import reduxThunk from 'redux-thunk'
 import rootReducer from './reducer'
 import CreateHistory from 'history/createBrowserHistory'
 import { routerMiddleware } from 'react-router-redux'
-import * as AuthActions from './auth/actions'
+
+import fetchGifs from './gifs/epic'
+import { createEpicMiddleware } from 'redux-observable'
+const epicMiddleware = createEpicMiddleware(fetchGifs)
 
 export const history = CreateHistory()
 
@@ -12,7 +15,7 @@ export default function configureStore (initialState) {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(reduxThunk, routerMiddleware(history)),
+      applyMiddleware(epicMiddleware, reduxThunk, routerMiddleware(history)),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   )
@@ -25,7 +28,7 @@ export default function configureStore (initialState) {
     })
   }
 
-  store.dispatch(AuthActions.verifyAuth())
+  // store.dispatch(AuthActions.verifyAuth())
 
   return store
 }
