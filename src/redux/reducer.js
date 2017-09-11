@@ -1,18 +1,17 @@
 import { combineReducers } from 'redux'
+import { routerReducer as router } from 'react-router-redux'
+import { reducer as form } from 'redux-form'
 
-import AuthReducer from './auth/reducer'
-import GifsReducer from './gifs/reducer'
-import ModalReducer from './gif_modal/reducer'
-
-import { routerReducer } from 'react-router-redux'
-import { reducer as FormReducer } from 'redux-form'
+import auth from './auth/reducer'
+import gifs from './gifs/reducer'
+import modal from './gif_modal/reducer'
 
 const rootReducer = combineReducers({
-  auth: AuthReducer,
-  form: FormReducer,
-  gifs: GifsReducer,
-  modal: ModalReducer,
-  router: routerReducer
+  form,
+  router,
+  auth,
+  gifs,
+  modal
 })
 
 export default rootReducer

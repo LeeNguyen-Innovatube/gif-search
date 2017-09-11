@@ -1,9 +1,5 @@
 import Firebase from 'firebase'
 
-export const SIGN_OUT_USER = 'SIGN_OUT_USER'
-export const AUTH_ERROR = 'AUTH_ERROR'
-export const AUTH_USER = 'AUTH_USER'
-
 const config = {
   apiKey: 'AIzaSyCmjMN7wsweCSPcy2gqUOkNqRIN3LYpQPQ',
   authDomain: 'react-gifs-search.firebaseapp.com',
@@ -12,40 +8,30 @@ const config = {
 
 Firebase.initializeApp(config)
 
-export const signInUser = (credentials) =>
-  (dispatch) => {
+export const types = {
+  SIGN_OUT_USER: 'SIGN_OUT_USER',
+  AUTH_ERROR: 'AUTH_ERROR',
+  AUTH_USER: 'AUTH_USER'
+}
+
+export const actions = {
+  authUser: () => ({ type: types.AUTH_USER }),
+
+  authError: (error) => ({ type: types.AUTH_ERROR, payload: error }),
+
+  signInUser: (credentials) => (dispatch) => {
     Firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(res => dispatch(authUser()))
-      .catch(err => {
-        console.log(err)
-        dispatch(authError(err))
-      })
-  }
+      .then(res => dispatch(actions.authUser()))
+      .catch(err => dispatch(actions.authError(err)))
+  },
 
-export const signUpUser = (credentials) =>
-  (dispatch) => {
+  signUpUser: (credentials) => (dispatch) => {
     Firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-      .then(res => dispatch(authUser()))
-      .catch(err => {
-        console.log(err)
-        dispatch(authError(err))
-      })
-  }
+      .then(res => dispatch(actions.authUser()))
+      .catch(err => dispatch(actions.authError(err)))
+  },
 
-export const signOutUser = () =>
-  (dispatch) => {
-    Firebase.auth().signOut().then(() => dispatch({ type: SIGN_OUT_USER }))
+  signOutUser: () => (dispatch) => {
+    Firebase.auth().signOut().then(() => dispatch({ type: types.SIGN_OUT_USER }))
   }
-export const verifyAuth = () =>
-  (dispatch) => {
-    Firebase.auth().onAuthStateChanged(user => user ? dispatch(authUser()) : dispatch(signOutUser()))
-  }
-
-export const authUser = () => ({
-  type: AUTH_USER
-})
-
-export const authError = error => ({
-  type: AUTH_ERROR,
-  payload: error
-})
+}

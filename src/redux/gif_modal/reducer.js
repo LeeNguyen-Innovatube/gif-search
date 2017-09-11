@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL } from './actions'
+import { types } from './actions'
 
 const initialState = {
   selectedGif: null,
@@ -7,9 +7,9 @@ const initialState = {
 
 export default function modal (state = initialState, action) {
   switch (action.type) {
-    case OPEN_MODAL:
+    case types.OPEN_MODAL:
       return { ...state, modalIsOpen: true, selectedGif: action.gif }
-    case CLOSE_MODAL:
+    case types.CLOSE_MODAL:
       return { ...state, modalIsOpen: false, selectedGif: null }
     default:
       return state

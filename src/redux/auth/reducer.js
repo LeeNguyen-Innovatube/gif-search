@@ -1,4 +1,5 @@
-import { AUTH_USER, AUTH_ERROR, SIGN_OUT_USER } from './actions'
+// import { AUTH_USER, AUTH_ERROR, SIGN_OUT_USER } from './actions'
+import { types } from './actions'
 
 const initialState = {
   authenticated: false,
@@ -7,11 +8,11 @@ const initialState = {
 
 export default function gifs (state = initialState, action) {
   switch (action.type) {
-    case AUTH_USER:
+    case types.AUTH_USER:
       return { ...state, authenticated: true, error: null }
-    case SIGN_OUT_USER:
+    case types.SIGN_OUT_USER:
       return { ...state, authenticated: false, error: null }
-    case AUTH_ERROR:
+    case types.AUTH_ERROR:
       return { ...state, error: action.payload.message }
     default:
       return state
