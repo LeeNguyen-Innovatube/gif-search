@@ -1,4 +1,3 @@
-// import { AUTH_USER, AUTH_ERROR, SIGN_OUT_USER } from './actions'
 import { types } from './actions'
 
 const initialState = {
